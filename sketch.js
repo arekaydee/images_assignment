@@ -8,15 +8,27 @@
 
 //STEP 1: Declare global variables for your images and upload button
 
+var tft;
+var tfb;
+var uploadButton;
+var uploadedImage;
+
 function preload(){
 	//STEP 2:
 	// Load your image with loadImage("path/to/image.jpg")
 	//and save it to your global variable:
 
+tft = loadImage("TrumpFaceTop.png");
+tfb = loadImage("TrumpFaceBottom.png");
 
 }
 
-function setup() {
+function setup(){
+	uploadButton = createFileInput(imageUploaded);
+	createCanvas(windowWidth,windowHeight);
+
+
+}
 
 	//STEP 3
 	//add a file upload button with CreateFileInput(_____);
@@ -24,9 +36,41 @@ function setup() {
 	//STEP 4:
   //set up your canvas with createCanvas(__,__);
 
+
+
+function imageUploaded(file){
+
+  uploadedImage = loadImage(file.data, drawImg);
 }
 
+function drawImg(){
+  image(uploadedImage,0,0);
+}
+
+
 function draw() {
+	background("white")
+
+	if (uploadedImage){
+    image(uploadedImage,108,362,267,mouseY-362,0,0,0,0);
+		textSize(72);
+		text("NOM NOM NOM NOM NOM",500,100,400,500);
+	}else{
+		textSize(72);
+		text("What's for dinner?",500,100,400,500);
+	}
+	image(tft,0,0);
+	if (mouseY < 362){
+		image(tfb,0,362);
+	}
+		else{
+			image(tfb,0,mouseY);
+		}
+
+
+	}
+
+
 
 	//STEP 5:
 	//draw your images with image(imagevariable);
@@ -36,7 +80,8 @@ function draw() {
 	//if the image the user uploaded exists to then draw it
 	//(see image upload example version 2)
 
-}
+
+
 
 //STEP 6:
 //create a callback function (you can name it anything you'd like)
